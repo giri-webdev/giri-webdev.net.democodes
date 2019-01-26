@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "External Helper";
+}
+
+@using giri_webdev_livedemo.Utilities
+
+@Html.ActionLink("Inline Helper", "InlineHelper") | @Html.ActionLink("External Helper", "ExternalHelper")
+
+<h2>External Helper</h2>
+
+@Html.PrintMessage("Human")
+
+@Html.PrintMessage("Machine")
+
+

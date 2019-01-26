@@ -3,3 +3,9 @@
 ################################################################################
 
 /giri-webdev-livedemo/bin
+/.vs/giri-webdev-livedemo/v15/Server/sqlite3
+/giri-webdev-livedemo/obj
+/giri-webdev-livedemo/giri-webdev-livedemo.csproj.user
+/giri-webdev-livedemo.Tests/obj
+/packages
+/.vs/config/applicationhost.config

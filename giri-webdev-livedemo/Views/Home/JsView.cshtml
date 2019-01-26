@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "JsView";
+}
+<script type="text/javascript" src="~/Scripts/jquery-1.8.2.min.js"></script>
+
+
+<script  type="text/javascript">
+
+    $(function () {
+
+        $.ajax({
+            type: "POST",
+            url: "/Home/GetJsCode"
+        })
+    });
+</script>

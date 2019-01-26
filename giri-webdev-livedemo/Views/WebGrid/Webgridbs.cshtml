@@ -1,0 +1,266 @@
+﻿
+@{
+    ViewBag.Title = "Webgrid and bootstrap";
+}
+
+<script src="~/Scripts/bootbox.js"></script>
+
+@model IEnumerable<giri_webdev_livedemo.Models.EmployeeModel>
+
+<h3>Webgrid & Bootstrap</h3>
+
+@{
+    WebGrid grid = new WebGrid(Model);
+}
+
+@grid.Table(
+    htmlAttributes: new { id = "grid_product" },
+    tableStyle: "table table-striped table-condensed table-bordered table-hover text-center",
+    headerStyle: "text-hdrtextcenter",
+columns: grid.Columns(
+
+grid.Column("Insert", format: @<text>
+        <span style="cursor:pointer;" onclick="AddDialog()" class="glyphicon glyphicon-plus"></span>
+</text>,canSort:false),
+grid.Column("Edit",format:@<text>
+    <span style="cursor:pointer;" onclick="EditDialog(@(item.ID),this)" class="glyphicon glyphicon-pencil"></span>
+</text>,canSort:false),
+grid.Column("Delete",format:@<text>
+    <span style="cursor:pointer;" onclick="DeleteEmployee(@(item.ID),this)" class="glyphicon glyphicon-trash"></span>
+</text>,canSort:false),
+grid.Column("View",format:@<text>
+    <span style="cursor:pointer;" onclick="EmployeeDetail(@(item.ID),this)" class="glyphicon glyphicon-list"></span>
+</text>,canSort:false),
+        grid.Column("ID"),
+        grid.Column("Name"),
+        grid.Column("Age"),
+        grid.Column("Salary")
+
+        )
+        )
+
+<div id="div_gridpager" style="text-align:center;">
+    @grid.PagerList(mode: WebGridPagerModes.All)
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <label>Id</label>
+                            </td>
+                            <td>
+                                <input class="form-control" type="text" id="txt_id" readonly />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Name</label>
+                            </td>
+                            <td>
+                                <input class="form-control" type="text" id="txt_name"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Age</label>
+                            </td>
+                            <td>
+                                <input class="form-control" type="text" id="txt_age"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Salary</label>
+                            </td>
+                            <td>
+                                <input class="form-control" type="text" id="txt_salary"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button  type="button" id="btn-add" onclick="AddEmployee();" class="btn btn-default" data-dismiss="modal">Add</button>
+                <button type="button" id="btn-close" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    function AddDialog() {
+        $('.modal-title').html("Add new employee.");
+        $('#btn-add').show();
+        $('#myModal').modal();
+        // bootbox.alert('Product inserted successfully.');
+        $('#txt_id').val(' ');
+        $('#txt_name').val(' ');
+        $('#txt_age').val(' ');
+        $('#txt_salary').val(' ');
+    }
+
+    function AddEmployee()
+    {
+        var name =  $('#txt_name').val();
+        var age =  $('#txt_age').val();
+        var salary =  $('#txt_salary').val();
+
+        var request = $.ajax({
+            url: "/WebGrid/AddEmployee",
+            type: "POST",
+            async:false,
+            data: { Name: name,Age:age,Salary:salary},
+            dataType: "json"
+        });
+
+        request.done(function (data) {
+            if (data.result) {
+                bootbox.alert('Employee added successfully.');
+            }
+            else {
+                bootbox.alert('Insertion failed.');
+            }
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            bootbox.alert('Insertion failed.');
+        });
+
+    }
+
+    function EmployeeDetail(id,span) {
+
+        var row = $(span).closest('tr');
+        var id = $(row).find('td:eq(4)').text();
+        $('#txt_id').val(id);
+
+        var name = $(row).find('td:eq(5)').text();
+        $('#txt_name').val(name);
+
+        var age = $(row).find('td:eq(6)').text();
+        $('#txt_age').val(age);
+
+        var salary = $(row).find('td:eq(7)').text();
+        $('#txt_salary').val(salary);
+
+        $('.modal-title').html('Employee name: ' + name);
+        $('#btn-add').hide();
+        $('#myModal').modal();
+
+    }
+
+    function DeleteEmployee(Id,span)
+    {
+        var row = $(span).closest('tr');
+        var name = $(row).find('td:eq(5)').text();
+        bootbox.confirm("Do you want to delete "+ name +" ?", function (result) {
+            if (result) {
+
+                var request = $.ajax({
+                    url: "/WebGrid/DeleteEmployee",
+                    type: "POST",
+                    async:false,
+                    data: { Id: parseInt(Id) },
+                    dataType: "json"
+                });
+
+                request.done(function (data) {
+
+                    if (data.result) {
+                        $(row).remove();
+                        bootbox.alert('Employee deleted successfully.');
+                    }
+                    else {
+
+                        bootbox.alert('Deletion failed.');
+                    }
+                });
+
+                request.fail(function (jqXHR, textStatus) {
+                    bootbox.alert('Deletion failed.');
+                });
+            }
+        });
+
+
+    }
+
+    function EditDialog(productId, span) {
+
+        var row = $(span).closest('tr');
+
+        var id = $(row).find('td:eq(4)').text();
+        $('#txt_id').val(id);
+
+        var name = $(row).find('td:eq(5)').text();
+        $('#txt_name').val(name);
+
+        var age = $(row).find('td:eq(6)').text();
+        $('#txt_age').val(age);
+
+        var salary = $(row).find('td:eq(7)').text();
+        $('#txt_salary').val(salary);
+
+        $('.modal-title').html('Employee name: ' + name);
+        $('#btn-add').show();
+        $('#btn-add').text('Update');
+        $('#btn-add').attr('onclick', 'EditEmployee()');
+        $('#myModal').modal();
+    }
+
+    function EditEmployee() {
+
+        var id = $('#txt_id').val();
+        var name = $('#txt_name').val();
+        var age = $('#txt_age').val();
+        var salary = $('#txt_salary').val();
+
+        var request = $.ajax({
+            url: "/WebGrid/UpdateEmployee",
+            type: "POST",
+            async: false,
+            data: {Id:parseInt(id), Name: name, Age: age, Salary: salary },
+            dataType: "json"
+        });
+
+        request.done(function (data) {
+            if (data.result) {
+                bootbox.alert('Employee updated successfully.');
+            }
+            else {
+                bootbox.alert('Update failed.');
+            }
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            bootbox.alert('Update failed.');
+        });
+    }
+
+    $(function () {
+
+        $('#div_gridpager > ul').addClass('pagination');
+
+    });
+</script>
+
+<style type="text/css">
+    .text-hdrtextcenter th {
+        text-transform: capitalize;
+        text-align: center;
+    }
+</style>
+
+
+
