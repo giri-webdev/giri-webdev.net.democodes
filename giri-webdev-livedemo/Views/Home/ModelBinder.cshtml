@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "Model Binder Demo";
+}
+
+@model giri_webdev_livedemo.Controllers.EmployeesModel
+
+<style type="text/css">
+    .table td {
+        text-align:right;
+    }
+</style>
+
+<h3>
+    Model Binder Example
+</h3>
+
+@using (Html.BeginForm("ModelBinder", "Home", FormMethod.Post))
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th colspan="2">
+                    <label>Add New Employee</label>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.FirstName)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.FirstName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.LastName)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.LastName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.Age)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.Age)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" id="btn_addemployee" value="Add" />
+                </td>
+                <td>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
+
+@ViewBag.Message
+
+
+
+
+

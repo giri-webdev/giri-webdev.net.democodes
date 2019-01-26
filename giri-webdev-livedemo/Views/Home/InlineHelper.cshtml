@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+@Html.ActionLink("Inline Helper", "InlineHelper") | @Html.ActionLink("External Helper", "ExternalHelper")
+
+<h2>Inline Helper</h2>
+
+@*Inline Helper*@
+
+@helper Print(string message)
+{
+    if (message.Length <= 5)
+    {
+        <h1 style="color: green;">Hello @message!! from inline helper.</h1>
+    }
+    else
+    {
+        <h1 style="color: red;">Hello @message!! from inline helper.</h1>
+    }
+}
+
+@Print("Human")
+@Print("Machine")

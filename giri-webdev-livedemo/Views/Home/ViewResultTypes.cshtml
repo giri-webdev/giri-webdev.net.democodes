@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "ViewResult Types";
+}
+
+
+<style type="text/css">
+    .lnkcss {
+        font-size: large;
+        color: blue;
+        text-decoration: none;
+    }
+
+    
+</style>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th colspan="4">
+                <label>Different View Result Types</label>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.ActionLink("ContentResult", "ContentType", "Home", null, new { target = "_blank", @class = "lnkcss" })
+            </td>
+            <td>
+                @Html.ActionLink("FileResult", "GetFileData", "Home", null, new { target = "_blank", @class = "lnkcss" })
+            </td>
+            <td>
+                @Html.ActionLink("HttpNotFoundResult", "HttpError", "Home", null, new { target = "_blank", @class = "lnkcss" })
+            </td>
+            <td>
+                @Html.ActionLink("JavascriptResult", "GetJsCode", "Home", null, new { target = "_blank", @class = "lnkcss" })
+            </td>
+            <td>
+                @Html.ActionLink("JsonResult", "GetJson", "Home", null, new { target = "_blank", @class = "lnkcss" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.ActionLink("RedirectResult", "RedirectExample", "Home", null, new { target = "_blank", @class = "lnkcss" })
+            </td>
+            <td>
+                @Html.ActionLink("RedirectPermanent", "RedirectPermanentExample", "Home", null, new { target = "_blank", @class = "lnkcss" })
+            </td>
+            <td>
+                @Html.ActionLink("RedirectToAction", "RedirectToActionTest", "Home", null, new { target = "_blank", @class = "lnkcss" })
+            </td>
+            <td>
+                @Html.ActionLink("RedirectToActionPermanent", "RedirectToActionPmntTest", "Home", null, new { target = "_blank", @class = "lnkcss" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.ActionLink("RedirectToRouteResult", "RedirectToRouteTest", "Home", null, new { target = "_blank", @class = "lnkcss" })
+            </td>
+            <td>
+                @Html.ActionLink("RedirectToRoutePermanent", "RedirectToRoutePermntTest", "Home", null, new { target = "_blank", @class = "lnkcss" })
+            </td>
+            <td>
+                @Html.ActionLink("ViewResult", "ViewTest", "Home", null, new { target = "_blank", @class = "lnkcss" })
+            </td>
+            <td>
+                @Html.ActionLink("PartialViewResult", "PartialViewTest", "Home", null, new { target = "_blank", @class = "lnkcss" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.ActionLink("EmptyResult", "EmptyTest", "Home", null, new { target = "_blank", @class = "lnkcss" })
+            </td>
+            <td>
+                @Html.ActionLink("HttpUnauthorizedResult", "HttpUnauthTest", "Home", null, new { target = "_blank", @class = "lnkcss" })
+            </td>
+            <td>
+                @Html.ActionLink("HttpStatusCodeResult", "HttStatusCodeTest", "Home", null, new { target = "_blank", @class = "lnkcss" })
+            </td>
+        </tr>
+    </tbody>
+</table>
