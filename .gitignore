@@ -11,3 +11,4 @@
 /.vs/config/applicationhost.config
 /.vs/giri-webdev-livedemo/v15/.suo
 /giri-webdev-livedemo.Tests/bin/Debug
+/giri-webdev-livedemo/Properties/PublishProfiles/livedemo.giri-webdev.net - Web Deploy.pubxml.user
