@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using giri_webdev_livedemo;
+﻿using System.Web.Mvc;
 using giri_webdev_livedemo.Controllers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace giri_webdev_livedemo.Tests.Controllers
 {
